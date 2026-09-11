@@ -152,30 +152,88 @@
     margin: 12px auto 0; border-radius: 2px;
   }
 
-  /* ===== شبكة المقالات ===== */
+  /* ===== قائمة المقالات ===== */
   .card-grid{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 26px;
-  }
-  @media (max-width: 860px){
-    .card-grid{ grid-template-columns: 1fr; }
+    display: flex;
+    flex-direction: column;
   }
 
-  .card{ display: block; }
-  .card summary.card-title{ cursor: pointer; list-style: none; }
+  .card{
+    border-top: 1px solid var(--line);
+    padding: 24px 0;
+  }
+  .card:first-child{ border-top: none; padding-top: 0; }
+
+  .card summary.card-title{
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
   .card summary.card-title::-webkit-details-marker{ display: none; }
   .card summary.card-title::marker{ content: ""; }
+
+  .card-icon-box{
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .card-icon-box.tone-1{ background: linear-gradient(155deg,#26221C,#1A1A18); }
+  .card-icon-box.tone-2{ background: linear-gradient(155deg,#2A1414,#1A1A18); }
+  .card-icon-box.tone-3{ background: linear-gradient(155deg,#20241C,#1A1A18); }
+  .card-icon-box .card-icon{
+    width: 22px;
+    height: 22px;
+    color: var(--white);
+    opacity: 0.85;
+  }
+
+  .card-title-text{
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    flex: 1;
+  }
+
   .card summary.card-title::after{
     content: "＋";
-    display: inline-block;
-    margin-inline-start: 8px;
+    flex: 0 0 auto;
     color: var(--red);
     font-weight: 700;
+    font-size: 1.1rem;
   }
   .card[open] summary.card-title::after{ content: "－"; }
+
+  .card-meta{
+    margin-top: 10px;
+    margin-inline-start: 58px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .card-tag{
+    background: rgba(212,9,12,0.08);
+    color: var(--red);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+  }
+  .card-date{
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
   .card-body{
     margin-top: 16px;
+    margin-inline-start: 58px;
     padding-top: 16px;
     border-top: 1px solid var(--line);
   }
@@ -185,65 +243,9 @@
     margin-bottom: 12px;
   }
   .card-body p:last-child{ margin-bottom: 0; }
-  .card-media{
-    aspect-ratio: 4/3;
-    border-radius: 5px;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 16px;
-  }
-  .card-media::before{
-    content: "";
-    position: absolute; inset: 0;
-    background-image:
-      repeating-linear-gradient(90deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 40px),
-      repeating-linear-gradient(0deg, rgba(255,255,255,0.06) 0 1px, transparent 1px 40px);
-  }
-  .card-media.tone-1{ background: linear-gradient(155deg,#26221C,#1A1A18); }
-  .card-media.tone-2{ background: linear-gradient(155deg,#2A1414,#1A1A18); }
-  .card-media.tone-3{ background: linear-gradient(155deg,#20241C,#1A1A18); }
 
-  .card-tag{
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: var(--red);
-    color: var(--white);
-    font-size: 0.74rem;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 3px;
-  }
-
-  .card-icon{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 46px;
-    height: 46px;
-    color: rgba(246,244,236,0.32);
-  }
-
-  .card-title{
-    font-family: 'Cairo', sans-serif;
-    font-weight: 900;
-    font-size: 1.08rem;
-    line-height: 1.55;
-    display: block;
-    transition: color .15s ease;
-  }
-  .card:hover .card-title{ color: inherit; }
-
-  .card-date{
-    margin-top: 8px;
-    font-size: 0.82rem;
-    color: var(--muted);
-  }
-  .card-excerpt{
-    margin-top: 8px;
-    font-size: 0.92rem;
-    color: var(--muted);
+  @media (max-width: 560px){
+    .card-meta, .card-body{ margin-inline-start: 0; }
   }
 
   /* ===== نبذة وخبرات ===== */
@@ -324,9 +326,11 @@
     <div class="card-grid">
 
       <details class="card">
-        <div class="card-media tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16v11H4Z M9 9 9 7h6v2 M12 12v5 M10 15l2 2 2-2"/></svg><span class="card-tag">السويد</span></div>
-        <summary class="card-title">رصدٌ يوضح خيارات فلسطينيي سوريا الانتخابية بالسويد</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 29 أغسطس 2026</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16v11H4Z M9 9 9 7h6v2 M12 12v5 M10 15l2 2 2-2"/></svg></span>
+          <span class="card-title-text">رصدٌ يوضح خيارات فلسطينيي سوريا الانتخابية بالسويد</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">السويد</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 29 أغسطس 2026</span></div>
         <div class="card-body">
           <p>أظهر رصد ميداني أجرته مجموعة العمل لآراء عدد من اللاجئين الفلسطينيين السوريين المقيمين في السويد، تبايناً في التوجهات السياسية والميول الانتخابية، مع ميل ملحوظ لدى المشاركين نحو أحزاب تنتمي إلى تكتل اليسار، وذلك في ظل التحولات التي يشهدها المشهد السياسي السويدي، ولا سيما في ملفات الهجرة واللجوء.</p>
         <p>توجهات يسارية هرباً من القيود: أظهرت إفادات المشاركين ميلاً واضحاً نحو أحزاب تكتل اليسار، وتحديداً الحزب الاشتراكي الديمقراطي (S)، وحزب اليسار (V)، وحزب البيئة "الخضر" (MP). وربط المشاركون هذا التوجه بمواقف هذه الأحزاب من قضايا الهجرة واللجوء وحقوق الإنسان.</p>
@@ -338,9 +342,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v18M8 3v18M12 3v18M16 3v18M20 3v18 M2 5h20M2 19h20"/></svg><span class="card-tag">معتقلون</span></div>
-        <summary class="card-title">عائلات معتقلي مخيم خان الشيح تطالب بمعرفة مصير أبنائها</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 19 أغسطس 2026</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v18M8 3v18M12 3v18M16 3v18M20 3v18 M2 5h20M2 19h20"/></svg></span>
+          <span class="card-title-text">عائلات معتقلي مخيم خان الشيح تطالب بمعرفة مصير أبنائها</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">معتقلون</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 19 أغسطس 2026</span></div>
         <div class="card-body">
           <p>صعّدت عائلات عدد من المعتقلين الفلسطينيين من أبناء مخيم خان الشيح مطالبها بالكشف عن مصير أبنائها وتوضيح أوضاعهم القانونية، ولا سيما المحتجزين منذ الحملة الأمنية التي شهدها المخيم في نيسان/أبريل 2026، داعيةً إلى مراجعة ملفاتهم والإفراج عن كل من لا يستند استمرار احتجازه إلى مسوغ قانوني أو قضائي.</p>
         <p>حملة أمنية طالت نحو 30 شاباً: نفذت قوات الأمن في 13 نيسان/أبريل 2026 حملة داخل المخيم طالت، وفق إفادات متداولة، نحو 30 شاباً، أُفرج عن عدد منهم، فيما بقي آخرون قيد الاحتجاز.</p>
@@ -351,9 +357,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z M12 3v17"/></svg><span class="card-tag">مخيمات</span></div>
-        <summary class="card-title">مخيم حيفا الكرمل.. مأساة منسية بين وعود العودة وسراب الإغاثة</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 18 مايو 2026</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z M12 3v17"/></svg></span>
+          <span class="card-title-text">مخيم حيفا الكرمل.. مأساة منسية بين وعود العودة وسراب الإغاثة</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">مخيمات</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 18 مايو 2026</span></div>
         <div class="card-body">
           <p>في منطقة جبل كلّي، حيث تلاشت معظم المخيمات ولم يبقَ سوى العزلة، يقبع مخيم "حيفا الكرمل" كشاهد حي على مأساة مركبة يعيشها المهجرون. بعد 14 عاماً من رحلة التهجير القاسية، يجد قاطنو هذا المخيم، الذين يبلغ تعدادهم اليوم نحو 400 عائلة من فلسطينيي سوريا، أنفسهم أمام واقع يفوق قسوة الخيام.</p>
         <p>منازل من الوهم: في مطلع 2022 وصل الأهالي إلى المخيم محملين بوعود ببناء متكامل بتبرعات من فلسطينيي 48، إلا أنهم وجدوا كتلاً إسمنتية غير صالحة للسكن، جدرانها متصدعة وأسقفها تسرب المياه. صارحهم المهندس المسؤول: "هذا البناء أحسن من الخيمة بشوي، ويصلح للسكن لأربع أو خمس سنوات فقط".</p>
@@ -364,9 +372,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 22 12 12 22 2 12Z M2 12h20 M12 2v20"/></svg><span class="card-tag">أوروبا</span></div>
-        <summary class="card-title">فلسطينيو سوريا في أوروبا.. واقع قانوني هش ومخاوف متصاعدة</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 14 مارس 2026</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 22 12 12 22 2 12Z M2 12h20 M12 2v20"/></svg></span>
+          <span class="card-title-text">فلسطينيو سوريا في أوروبا.. واقع قانوني هش ومخاوف متصاعدة</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">أوروبا</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 14 مارس 2026</span></div>
         <div class="card-body">
           <p>رصدت مجموعة العمل من أجل فلسطينيي سوريا جملة من التحولات السياسية والقانونية التي أثّرت على أوضاع اللاجئين الفلسطينيين القادمين من سوريا والمقيمين في أوروبا، منذ سقوط نظام بشار الأسد في 8 ديسمبر 2024 وحتى اليوم.</p>
         <p>تشدد متزايد في سياسات اللجوء: بدأت دول عدة منذ 2025 تشديد معايير منح اللجوء للسوريين. في ألمانيا تراجعت الطلبات الشهرية من 16 ألف إلى نحو 3500 بحلول سبتمبر 2025 (انخفاض 78%)، وفي النمسا أعادت الحكومة فتح ملف الترحيل إلى سوريا في حالات محددة.</p>
@@ -377,9 +387,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h8v8H4Z M12 8h9M18 8v3M15 8v2"/></svg><span class="card-tag">فلسطينيو سوريا</span></div>
-        <summary class="card-title">عام على التحرير.. كيف تغير المشهد بالنسبة للاجئين الفلسطينيين في سوريا؟</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 8 ديسمبر 2025</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h8v8H4Z M12 8h9M18 8v3M15 8v2"/></svg></span>
+          <span class="card-title-text">عام على التحرير.. كيف تغير المشهد بالنسبة للاجئين الفلسطينيين في سوريا؟</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">فلسطينيو سوريا</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 8 ديسمبر 2025</span></div>
         <div class="card-body">
           <p>بعد مرور عام على التغيرات الجذرية التي شهدتها سوريا بسقوط نظام بشار الأسد، يجد اللاجئون الفلسطينيون أنفسهم أمام واقع جديد مركب، يمتزج فيه الأمل الحذر بمستقبل أفضل مع تحديات جسيمة تلقي بظلالها على حاضرهم ومستقبلهم.</p>
         <p>مشهد متناقض: سادت حالة ارتياح نسبي في المخيمات بعد معاملة جيدة من قوات المعارضة، لكن ظهرت توصيفات مثل "أجنبي مقيم" بدل المعاملة التاريخية بموجب القانون رقم 260 لعام 1956، ما أثار مخاوف من المساس بوضعهم القانوني كلاجئين.</p>
@@ -390,9 +402,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16v11H4Z M9 9 9 7h6v2 M12 12v5 M10 15l2 2 2-2"/></svg><span class="card-tag">السويد</span></div>
-        <summary class="card-title">السويد. الإقامات الدائمة أمام خطر الإلغاء</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 26 سبتمبر 2025</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h16v11H4Z M9 9 9 7h6v2 M12 12v5 M10 15l2 2 2-2"/></svg></span>
+          <span class="card-title-text">السويد. الإقامات الدائمة أمام خطر الإلغاء</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">السويد</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 26 سبتمبر 2025</span></div>
         <div class="card-body">
           <p>تواجه آلاف العائلات المهاجرة حالة من القلق عقب تسريبات حول مقترحات ستقدّمها لجنة تحقيق حكومية في السويد، تهدف إلى تحويل الإقامات الدائمة إلى مؤقتة، حتى لأولئك الذين امتلكوا إقامة دائمة سابقاً.</p>
         <p>ما المقترح؟ ينصّ على أن تصبح الإقامة المؤقتة القاعدة العامة، بحيث يمكن سحب الإقامة الدائمة ممن لا يستوفي الشروط الجديدة، مع احتمال الترحيل لمن لا يستوفي المعايير.</p>
@@ -403,9 +417,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg><span class="card-tag">لجوء</span></div>
-        <summary class="card-title">فلسطينيو سوريا في السويد أمام جدار التجنيس</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 19 مايو 2025</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg></span>
+          <span class="card-title-text">فلسطينيو سوريا في السويد أمام جدار التجنيس</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">لجوء</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 19 مايو 2025</span></div>
         <div class="card-body">
           <p>وسط تراجع حاد وغير مسبوق في عدد الحاصلين على الجنسية السويدية خلال شهر أبريل، يعيش اللاجئون الفلسطينيون في السويد، لا سيما القادمون من سوريا، حالة من القلق والترقّب.</p>
         <p>"لا وطن ولا جنسية": يقول أبو العبد، لاجئ من مخيم خان الشيح مقيم في هلسنبوري منذ 5 سنوات: "قدّمت على الجنسية قبل عام ونصف، ولم يصلني أي رد... لا أعلم إن كنت سأحصل عليها أصلاً، علماً أن لدي عمل ثابت منذ أكثر من سنتين".</p>
@@ -415,9 +431,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg><span class="card-tag">لجوء</span></div>
-        <summary class="card-title">زيادة بدل العودة الطوعية في السويد. حافز سخي أم خطوة رمزية؟</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 24 أبريل 2025</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg></span>
+          <span class="card-title-text">زيادة بدل العودة الطوعية في السويد. حافز سخي أم خطوة رمزية؟</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">لجوء</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 24 أبريل 2025</span></div>
         <div class="card-body">
           <p>أعلنت الحكومة السويدية اليمينية عن اتفاق جديد مع حزب "ديمقراطيو السويد" يقضي برفع قيمة بدل العودة الطوعية للمهاجرين، ليصل إلى 350 ألف كرونة للفرد البالغ، و600 ألف كرونة كحد أقصى للعائلات.</p>
         <p>الهدف المعلن: تحفيز من حصلوا على إقامات قانونية على مغادرة السويد. لكن لجنة حكومية استشارية شككت في جدوى القرار، معتبرة أن تأثيره سيكون محدوداً ولن يؤدي إلى مغادرة أكثر من 700 إلى 1000 شخص سنوياً.</p>
@@ -426,9 +444,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M6 21h12M4 6h16M4 6 1.5 11h5L4 6Zm16 0-2.5 5h5L20 6Z"/></svg><span class="card-tag">حقوق الإنسان</span></div>
-        <summary class="card-title">فلسطينيو سوريا يطالبون بالكشف عن مصير المعتقلين ومحاسبة الفصائل المتورطة</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 20 ديسمبر 2024</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M6 21h12M4 6h16M4 6 1.5 11h5L4 6Zm16 0-2.5 5h5L20 6Z"/></svg></span>
+          <span class="card-title-text">فلسطينيو سوريا يطالبون بالكشف عن مصير المعتقلين ومحاسبة الفصائل المتورطة</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">حقوق الإنسان</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 20 ديسمبر 2024</span></div>
         <div class="card-body">
           <p>طالب أهالي المعتقلين الفلسطينيين في سوريا بالكشف عن مصير أبنائهم الذين اعتقلوا من قبل قوات النظام السوري ومجموعات مسلحة تابعة لفصائل فلسطينية، بعد إعلان انتهاء عمليات البحث في جميع السجون السورية دون التوصل إلى معلومات واضحة.</p>
         <p>يقول أبو أحمد، والد أحد المعتقلين: "ابني اعتُقل منذ أكثر من ثماني سنوات عند حاجز أمني أثناء عودته من عمله. لا نعلم عنه شيئاً حتى اليوم. نطالب بمحاسبة كل من ساهم في اعتقاله".</p>
@@ -438,9 +458,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v18M8 3v18M12 3v18M16 3v18M20 3v18 M2 5h20M2 19h20"/></svg><span class="card-tag">معتقلون</span></div>
-        <summary class="card-title">عائلات فلسطينية تؤكد وفاة أبنائها المختفين قسرياً في سجون النظام البائد</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 14 ديسمبر 2024</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v18M8 3v18M12 3v18M16 3v18M20 3v18 M2 5h20M2 19h20"/></svg></span>
+          <span class="card-title-text">عائلات فلسطينية تؤكد وفاة أبنائها المختفين قسرياً في سجون النظام البائد</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">معتقلون</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 14 ديسمبر 2024</span></div>
         <div class="card-body">
           <p>بعد سنوات من الألم والبحث المستمر، أعلنت عشرات العائلات الفلسطينية وفاة أبنائها المختفين قسرياً خلال فترة حكم النظام السوري البائد، عقب سيطرة قوات المعارضة وإطلاق سراح آلاف السجناء من مختلف السجون.</p>
         <p>سلّط الحدث الضوء بشكل خاص على سجن صيدنايا الذي يوصف بـ"المسلخ البشري"، حيث كشفت شهادات المعتقلين السابقين أن معظم نزلاء هذا السجن قُتلوا تحت التعذيب، ولم يُعرف حتى الآن مكان دفن جثثهم.</p>
@@ -450,27 +472,33 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg><span class="card-tag">لجوء</span></div>
-        <summary class="card-title">السويد تعلن عن منحة مالية للمهاجرين مقابل التخلي عن الإقامة والجنسية</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 16 سبتمبر 2024</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg></span>
+          <span class="card-title-text">السويد تعلن عن منحة مالية للمهاجرين مقابل التخلي عن الإقامة والجنسية</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">لجوء</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 16 سبتمبر 2024</span></div>
         <div class="card-body">
           <p>استغراب واسع بين اللاجئين إثر إعلان السويد منحة مالية لكل مهاجر يتخلى عن إقامته أو جنسيته ويعود إلى بلده.</p>
         </div>
       </details>
 
       <details class="card">
-        <div class="card-media tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg><span class="card-tag">لجوء</span></div>
-        <summary class="card-title">تشديد قوانين التجنيس ولم الشمل في هولندا يثير مخاوف فلسطينيي سوريا</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 16 سبتمبر 2024</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg></span>
+          <span class="card-title-text">تشديد قوانين التجنيس ولم الشمل في هولندا يثير مخاوف فلسطينيي سوريا</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">لجوء</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 16 سبتمبر 2024</span></div>
         <div class="card-body">
           <p>تشديد هولندا لشروط التجنيس ولم شمل الأسر يضاعف قلق اللاجئين الفلسطينيين القادمين من سوريا.</p>
         </div>
       </details>
 
       <details class="card">
-        <div class="card-media tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg><span class="card-tag">لجوء</span></div>
-        <summary class="card-title">فلسطينيو سوريا وتعقيدات الحصول على الإقامة الدائمة في السويد</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 14 أغسطس 2024</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg></span>
+          <span class="card-title-text">فلسطينيو سوريا وتعقيدات الحصول على الإقامة الدائمة في السويد</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">لجوء</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 14 أغسطس 2024</span></div>
         <div class="card-body">
           <p>يواجه اللاجئون الفلسطينيون القادمون من سوريا في السويد تحديات كبيرة في الحصول على الإقامة الدائمة، نظراً للمعايير الصارمة والمتطلبات الإضافية التي فرضتها الحكومة السويدية.</p>
         <p>طول مدة الانتظار: قد تمتد المدة لسنوات. يروي أحد اللاجئين في هلسنبوري أنه ينتظر الإقامة الدائمة منذ ثلاث سنوات رغم تحقيقه كل الشروط، وانتقل طلبه بين أربعة محققين دون قرار.</p>
@@ -480,18 +508,22 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z M12 3v17"/></svg><span class="card-tag">مخيمات</span></div>
-        <summary class="card-title">إعادة فتح طريق مخيم اليرموك يلدا بعد 12 عاماً من الإغلاق</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 10 أغسطس 2024</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 2 20h20L12 3Z M12 3v17"/></svg></span>
+          <span class="card-title-text">إعادة فتح طريق مخيم اليرموك يلدا بعد 12 عاماً من الإغلاق</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">مخيمات</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 10 أغسطس 2024</span></div>
         <div class="card-body">
           <p>إعادة فتح الطريق الرابط بين دوار فلسطين في مخيم اليرموك وبلدة يلدا بعد إغلاق دام 12 عامًا.</p>
         </div>
       </details>
 
       <details class="card">
-        <div class="card-media tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 16 9 12 22 8 9Z M12 7 14 10.5 12 15 10 10.5Z"/></svg><span class="card-tag">معيشة</span></div>
-        <summary class="card-title">أزمة غاز الطهي تُفاقم معاناة اللاجئين الفلسطينيين في سوريا</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 25 يوليو 2024</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 16 9 12 22 8 9Z M12 7 14 10.5 12 15 10 10.5Z"/></svg></span>
+          <span class="card-title-text">أزمة غاز الطهي تُفاقم معاناة اللاجئين الفلسطينيين في سوريا</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">معيشة</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 25 يوليو 2024</span></div>
         <div class="card-body">
           <p>تُلقي أزمة غاز الطهي المتفاقمة في سوريا بظلالها القاتمة على حياة اللاجئين الفلسطينيين، إذ لا تكفي الكمية المخصصة شهرياً عبر البطاقة الذكية حاجة العائلات، مع تأخير كبير في التوزيع يضطر الأهالي للانتظار أشهراً طويلة.</p>
         <p>ارتفاع فاحش في أسعار الغاز الحرّ: وصل سعر أسطوانة الغاز في السوق السوداء إلى أكثر من 100 ألف ليرة سورية. وحدّدت وزارة التجارة الداخلية سعر الأسطوانة المنزلية بالسعر الحر بـ126 ألف ليرة، والصناعية بـ202 ألف ليرة.</p>
@@ -500,9 +532,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg><span class="card-tag">لجوء</span></div>
-        <summary class="card-title">فلسطينيو سوريا في مصر يواجهون خطر الترحيل بعد دفع رسوم باهظة</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 16 سبتمبر 2023</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3h16v18H4Z M7 7h4v4H7Z M13 7h4M13 10h4M7 14h10M7 17h6"/></svg></span>
+          <span class="card-title-text">فلسطينيو سوريا في مصر يواجهون خطر الترحيل بعد دفع رسوم باهظة</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">لجوء</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 16 سبتمبر 2023</span></div>
         <div class="card-body">
           <p>أعرب لاجئون فلسطينيون سوريون مقيمون في مصر عن مخاوفهم من الترحيل إلى سوريا بعد قرار الحكومة المصرية بتجديد الإقامات للمقيمين غير الشرعيين، والذي يشملهم، مقابل رسوم باهظة تصل إلى ألف دولار أمريكي لكل فرد.</p>
         <p>وأشار اللاجئون إلى أن القرار "طامة كبرى" لأنه يفرض رسوماً لا تتناسب مع ظروفهم المعيشية، ويُهدد بترحيلهم في حال رفض الطلبات، رغم دخولهم مصر بصورة نظامية منذ عام 2011 بحثاً عن حماية وأمان.</p>
@@ -511,9 +545,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18v11H3Z M3 9 4 6h16l1 3M12 9v11M9 5v4M15 5v4"/></svg><span class="card-tag">الأونروا</span></div>
-        <summary class="card-title">الأونروا تخيب آمال فلسطينيي سوريا في الأردن</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 15 يناير 2024</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18v11H3Z M3 9 4 6h16l1 3M12 9v11M9 5v4M15 5v4"/></svg></span>
+          <span class="card-title-text">الأونروا تخيب آمال فلسطينيي سوريا في الأردن</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">الأونروا</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 15 يناير 2024</span></div>
         <div class="card-body">
           <p>عقد وفد من اللاجئين الفلسطينيين السوريين في الأردن اجتماعاً مع مسؤولي وكالة الأونروا لبحث أوضاعهم، بعد تصاعد الشكاوى بشأن تأخر صرف المساعدات وإلغاء المساعدات الشتوية وعدم توفير فرص عمل أو سكن.</p>
         <p>أفاد مصدر من الوفد أن الأونروا أبلغتهم بأنها تواجه أزمة مالية خانقة، وستعيد تقييم حالات اللاجئين وستوقف المساعدات عن عائلات كثيرة، وقد تصل نسبة العائلات المستبعدة إلى النصف.</p>
@@ -522,9 +558,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-4 9Z M12 12 9 21l3-3 3 3Z"/></svg><span class="card-tag">إنجازات</span></div>
-        <summary class="card-title">مهندسة فلسطينية تحصل على منحة بريطانية وتدريب بحثي في سويسرا</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 25 يناير 2022</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-4 9Z M12 12 9 21l3-3 3 3Z"/></svg></span>
+          <span class="card-title-text">مهندسة فلسطينية تحصل على منحة بريطانية وتدريب بحثي في سويسرا</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">إنجازات</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 25 يناير 2022</span></div>
         <div class="card-body">
           <p>تمكنت اللاجئة الفلسطينية "رهام أبو راشد"، من أبناء مخيم اليرموك، من الحصول على بعثة لإحدى الجامعات البريطانية بعد تفوقها في دراستها بجامعة جنوب الدانمارك تخصص "هندسة ميكاترونكس"، إضافة لطلبها من مركز الأبحاث النووية "CERN" بسويسرا للتدرّب.</p>
         <p>يقول والدها صلاح أبو راشد: "خرجنا من مخيم اليرموك على أمل العودة قريباً، ولم نحمل معنا سوى الحقائب المدرسية... كانت تضطر ابنتي لركوب ثلاث حافلات بمدة تتجاوز الساعتين للوصول لمدرستها، لكن ذلك لم يثنها عن متابعة دراستها".</p>
@@ -533,9 +571,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 18 10 12 22 6 10Z M12 6.5 14 10 12 13.5 10 10Z"/></svg><span class="card-tag">درعا</span></div>
-        <summary class="card-title">جنوب سوريا.. نقض اتفاق درعا ومخاوف من مجازر بحق المدنيين</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 27 يوليو 2021</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 18 10 12 22 6 10Z M12 6.5 14 10 12 13.5 10 10Z"/></svg></span>
+          <span class="card-title-text">جنوب سوريا.. نقض اتفاق درعا ومخاوف من مجازر بحق المدنيين</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">درعا</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 27 يوليو 2021</span></div>
         <div class="card-body">
           <p>في تطورات الأحداث المتلاحقة بمدينة درعا، قال مراسل مجموعة العمل إن النظام السوري نقض الاتفاق الذي تم التوصل إليه بعد حصار دام قرابة شهر لمناطق درعا البلد والمخيم وطريق السد.</p>
         <p>سقطت قذائف هاون على عدة أحياء تلتها عمليات قنص للمدنيين خلفت قتلى وجرحى، فيما تجهزت قوات تابعة للفرقة الرابعة والتاسعة لاقتحام المخيم رغم اتفاق تهدئة سابق، ما اعتبره الأهالي غدراً وخرقاً واضحاً.</p>
@@ -544,9 +584,11 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-4 9Z M12 12 9 21l3-3 3 3Z"/></svg><span class="card-tag">إنجازات</span></div>
-        <summary class="card-title">حاكم النمسا العليا يكرم الفلسطيني السوري لنيله المرتبة الأولى على جامعته</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 12 أكتوبر 2020</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-1"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3h8l-4 9Z M12 12 9 21l3-3 3 3Z"/></svg></span>
+          <span class="card-title-text">حاكم النمسا العليا يكرم الفلسطيني السوري لنيله المرتبة الأولى على جامعته</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">إنجازات</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 12 أكتوبر 2020</span></div>
         <div class="card-body">
           <p>كرم حاكم النمسا العليا توماس شتيلتسير اللاجئ الفلسطيني السوري "أحمد فايز دياب" لحصوله على المرتبة الأولى في قسم الاقتصاد والمبيعات بجامعة لينز، بعد أن هُجرت عائلته من قضاء طبريا عام 1948 إلى مخيم خان الشيح، ثم اضطر للهجرة إلى النمسا عام 2014.</p>
         <p>يقول أحمد: "واجهت منذ وصولي الكثير من الصعوبات أهمها صعوبة الاندماج... بفضل الله خلال تسعة أشهر تعلمت اللغة، وتطوعت مع الهلال الأحمر لمساعدة اللاجئين".</p>
@@ -555,18 +597,22 @@
       </details>
 
       <details class="card">
-        <div class="card-media tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M6 21h12M4 6h16M4 6 1.5 11h5L4 6Zm16 0-2.5 5h5L20 6Z"/></svg><span class="card-tag">حقوق الإنسان</span></div>
-        <summary class="card-title">فلسطينيو سوريا وقانون قيصر</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · يونيو 2020</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-2"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M6 21h12M4 6h16M4 6 1.5 11h5L4 6Zm16 0-2.5 5h5L20 6Z"/></svg></span>
+          <span class="card-title-text">فلسطينيو سوريا وقانون قيصر</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">حقوق الإنسان</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · يونيو 2020</span></div>
         <div class="card-body">
           <p>تقرير ميداني من شمال غربي سوريا عن أثر قانون قيصر على مئات العائلات الفلسطينية النازحة إلى إدلب وعفرين وريف حلب.</p>
         </div>
       </details>
 
       <details class="card">
-        <div class="card-media tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M6 21h12M4 6h16M4 6 1.5 11h5L4 6Zm16 0-2.5 5h5L20 6Z"/></svg><span class="card-tag">حقوق الإنسان</span></div>
-        <summary class="card-title">قانون قيصر: التأثير والتداعيات</summary>
-        <div class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 17 يونيو 2020</div>
+        <summary class="card-title">
+          <span class="card-icon-box tone-3"><svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M6 21h12M4 6h16M4 6 1.5 11h5L4 6Zm16 0-2.5 5h5L20 6Z"/></svg></span>
+          <span class="card-title-text">قانون قيصر: التأثير والتداعيات</span>
+        </summary>
+        <div class="card-meta"><span class="card-tag">حقوق الإنسان</span><span class="card-date">مجموعة العمل من أجل فلسطينيي سورية · 17 يونيو 2020</span></div>
         <div class="card-body">
           <p>في الوقت الذي يتم فيه تشديد العقوبات الأمريكية بموجب قانون قيصر، ترزح آلاف العائلات الفلسطينية والسورية تحت براثن الفقر، مع انخفاض قيمة الليرة السورية إلى مستويات قياسية (3000 لليرة مقابل الدولار).</p>
         <p>بحسب الأمم المتحدة يعيش الجزء الأكبر من السوريين تحت خط الفقر، وارتفعت أسعار المواد الغذائية بنسبة 133% منذ مايو 2019، فيما لا يتجاوز راتب أعلى موظف حكومي 27 دولاراً شهرياً.</p>
