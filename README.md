@@ -12,6 +12,7 @@
 | `articles/_template.html` | قالب لإضافة مقال جديد |
 | `images/` | صور المقالات (`article-01.svg` … و`article-24.jpg`) |
 | `profile.jpg` | صورتك، وتُستخدم عند مشاركة الروابط وفي بيانات غوغل |
+| `google176f48d60ae42a55.html` | ملف التحقق من Google Search Console — لا تحذفه |
 | `sitemap.xml` | قائمة الصفحات التي تُرسل إلى Google Search Console |
 
 ## ما تم لتحسين الظهور في غوغل (23 سبتمبر 2026)
@@ -25,12 +26,12 @@
 
 ## مشكلات مفتوحة
 
-- [ ] **4 مقالات نصها جملة واحدة ومخفية عن غوغل (noindex):**
-  `sweden-return-grant-announcement` و`netherlands-citizenship-rules` و`yarmouk-yalda-road` و`caesar-act-impact`.
+- [x] ~~مقالات قصيرة~~: أُضيفت النصوص الكاملة لثلاثة منها (منحة السويد، هولندا، طريق اليرموك يلدا) مع رابط المصدر في مجموعة العمل.
+- [ ] **مقال واحد ما زال نصه جملة واحدة ومخفياً عن غوغل (noindex):** `caesar-act-palestinians` («فلسطينيو سوريا وقانون قيصر»).
   عند إضافة النص الكامل: غيّر `noindex, follow` إلى `index, follow, max-image-preview:large` وأضف الصفحة إلى `sitemap.xml`.
+- [x] Google Search Console: تم التحقق (ملف `google176f48d60ae42a55.html` — لا تحذفه)، وأُرسل `sitemap.xml`، وطُلبت فهرسة الصفحة الرئيسية.
 - [ ] **الصور:** 23 مقالاً صورتها رسم SVG لا يظهر عند المشاركة، والأفضل استبدالها بصور JPG حقيقية.
 - [ ] **رابط المصدر الأصلي:** إضافة سطر «نُشر أصلاً في مجموعة العمل» مع رابط المقال هناك في آخر كل مقال.
-- [ ] **Google Search Console:** التسجيل، ثم وضع وسم التحقق مكان التعليق الموجود في `<head>` في `index.html`، ثم إرسال `sitemap.xml`.
 - [ ] **توحيد الحسابات:** صفحة الجزيرة تربط اسمك بـ @SaidsonySs، والموقع يستخدم @SaidSulai82.
 - [ ] **نطاق خاص باسمك** (اختياري لكنه مؤثر)، مثل saidsulaiman.com.
 
